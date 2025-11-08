@@ -13,19 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out files
-        uses: actions/checkout@v5
-        
-        - name: Write Salesforce files from payload
-          run: |
-            mkdir -p apex triggers lwc
-            echo '${{ toJson(github.event.client_payload.files) }}' | jq -c '.[]' | while read file; do
-              path=$(echo $file | jq -r '.path')
-              content=$(echo $file | jq -r '.content' | base64 --decode)
-              # Make folder if necessary
-              dir=$(dirname "$path")
-              mkdir -p "$dir"
-              echo "$content" > "$path"
-            done
+        uses: actions/checkout@v5      
+
 
       # PREREQUISITES - Only needed if the runner doesn't already satisfy these requirements.
       - name: Ensure node v20.9.0 or greater
