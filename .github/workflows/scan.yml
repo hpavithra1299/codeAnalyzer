@@ -1,0 +1,27 @@
+name: Code Scan
+
+on:
+  repository_dispatch:
+    types: [scan_trigger]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Code Analyzer
+        id: scan
+        uses: forcedotcom/run-code-analyzer@v2
+        with:
+          output-format: json
+
+      - name: POST result → Salesforce Org-A
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.SF_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"status\":\"DONE\",\"summary\":${{ steps.scan.outputs.report }}}" \
+            "https://YOUR_DOMAIN/services/apexrest/codescan/v1/result"
