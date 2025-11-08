@@ -1,6 +1,7 @@
-name: Salesforce Code Analyzer Workflow
+name: Code Scan 
 on:
-  pull_request:
+  repository_dispatch:
+    types: [scan_trigger]
 jobs:
   salesforce-code-analyzer-workflow:
     permissions:
