@@ -38,25 +38,6 @@ jobs:
       - name: Install Latest Salesforce Code Analyzer CLI Plugin
         run: sf plugins install code-analyzer@latest
 
-      - name: Write Salesforce files from payload
-        run: |
-            mkdir -p apex triggers lwc
-            echo '${{ toJson(github.event.client_payload.files) }}' | jq -c '.[]' | while read item; do
-              NAME=$(echo "$item" | jq -r '.fileName')
-              BODY=$(echo "$item" | jq -r '.body')
-        
-              # Detect folder based on extension
-              if [[ "$NAME" == *.cls ]]; then
-                echo "$BODY" > "apex/$NAME"
-              elif [[ "$NAME" == *.trigger ]]; then
-                echo "$BODY" > "triggers/$NAME"
-              elif [[ "$NAME" == *.js" || "$NAME" == *.html || "$NAME" == *.css ]]; then
-                echo "$BODY" > "lwc/$NAME"
-              else
-                echo "$BODY" > "$NAME"
-              fi
-            done
-
       - name: Run Salesforce Code Analyzer
         id: run-code-analyzer
         uses: forcedotcom/run-code-analyzer@v2
