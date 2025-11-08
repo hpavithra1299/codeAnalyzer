@@ -1,7 +1,7 @@
 name: Salesforce Code Analyzer Workflow
 
 on:
-    workflow_dispatch:
+    repository_dispatch:
     pull_request:
       types: [scan_trigger]
     
