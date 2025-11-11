@@ -40,7 +40,7 @@ jobs:
         run: sf plugins install code-analyzer@latest
 
       - name: Code Analyzer
-        run: sf code-analyzer run --rule-selector retire-js:Recommended --target ./force-app/**/*.cls 
+        run: sf code-analyzer run --rule-selector retire-js:Recommended --target C:\Users\Ajay\Desktop\Learning\codeAnalyzer\force-app\main\default\classes 
 
       - name: Run Salesforce Code Analyzer
         id: run-code-analyzer
