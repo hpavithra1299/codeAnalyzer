@@ -2,8 +2,7 @@ name: Salesforce Code Analyzer Workflow
 
 on:
     repository_dispatch:
-    pull_request:
-      branches: [ "main" ]
+    pull_request:      
       types: [scan_trigger]
       
     
@@ -44,7 +43,7 @@ jobs:
         id: run-code-analyzer
         uses: forcedotcom/run-code-analyzer@v2       
         with:   
-          run-arguments: C:\Users\Ajay\Desktop\Learning\codeAnalyzer\force-app\main\default\classes . --view detail --output-file sfca_results.html --output-file sfca_results.json
+          run-arguments: C:\Users\Ajay\Desktop\Learning\codeAnalyzer\force-app\main\default . --view detail --output-file sfca_results.html --output-file sfca_results.json
           results-artifact-name: salesforce-code-analyzer-results
           github-token: ${{ github.token }}
 
