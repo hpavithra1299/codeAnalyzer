@@ -39,6 +39,9 @@ jobs:
       - name: Install Latest Salesforce Code Analyzer CLI Plugin
         run: sf plugins install code-analyzer@latest
 
+      - name: Code Analyzer
+        run: sf code-analyzer run --rule-selector retire-js:Recommended --target ./force-app/**/*.cls 
+
       - name: Run Salesforce Code Analyzer
         id: run-code-analyzer
         uses: forcedotcom/run-code-analyzer@v2       
